@@ -255,7 +255,7 @@ function usual(&$out) {
     }
    }
  }
- function processCycle($msg) {
+ function processCycle($msg, $ip) {
     $this->getConfig();
       //to-do
     $msg_arr=json_decode($msg, TRUE);
@@ -264,6 +264,11 @@ function usual(&$out) {
         $device=SQLSelectOne("SELECT * FROM dev_ujin_devices WHERE DEV_ID = '".DBSafe($dev_id)."'");
         $total=count($device);
         if ($total) {
+			if($ip != $device['IP'] || $msg_arr['header']['devName'] != $device['DEV_TYPE']) {
+				$device['IP']=$ip;
+				$device['DEV_TYPE']=$msg_arr['header']['devName'];
+				sqlUpdate('dev_ujin_devices', $device);
+			}
             if (is_array($msg_arr['header']['data'])) {
                 $data=SQLSelect("SELECT * FROM dev_ujin_data WHERE DEVICE_ID = '".DBSafe($device['ID'])."'");
                 foreach($msg_arr['header']['data'] as $k => $v) {
@@ -290,6 +295,7 @@ function usual(&$out) {
             $device['DEV_ID']=$msg_arr['header']['id'];
             $device['TITLE']=$msg_arr['header']['devName'];
             $device['DEV_TYPE']=$msg_arr['header']['devName'];
+			$device['IP']=$ip;
             sqlInsert('dev_ujin_devices', $device);
         }
     } else {

@@ -53,7 +53,7 @@ while (1)
 
 		$r = socket_recvfrom($sock, $buf, 512, 0, $remote_ip, $remote_port);
 		echo "$remote_ip : $remote_port -- " . $buf .PHP_EOL;
-		 $dev_ujin_module->processCycle($buf);
+		 $dev_ujin_module->processCycle($buf, $remote_ip);
 		
 
    if (file_exists('./reboot') || IsSet($_GET['onetime']))
