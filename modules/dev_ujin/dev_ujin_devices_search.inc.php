@@ -24,6 +24,12 @@
    //paging($res, 100, $out); // search result paging
    $total=count($res);
    for($i=0;$i<$total;$i++) {
+	   if(stripos($res[$i]['DEV_TYPE'], 'msensor')!== false) $res[$i]['IMG']='msensor';
+	   elseif(stripos($res[$i]['DEV_TYPE'], 'dinRelay')!== false) $res[$i]['IMG']='dinRelay';
+	   elseif(stripos($res[$i]['DEV_TYPE'], 'sdimmer')!== false) $res[$i]['IMG']='sdimmer';
+	   elseif(stripos($res[$i]['DEV_TYPE'], 'termostat')!== false) $res[$i]['IMG']='termostat';
+	   elseif(stripos($res[$i]['DEV_TYPE'], 'sonoff_ext_socket')!== false) $res[$i]['IMG']='sonoff_ext_socket';
+	   else $res[$i]['IMG']='unknown';
     // some action for every record if required
    }
    $out['RESULT']=$res;

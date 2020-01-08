@@ -22,31 +22,40 @@
 <!-- IP (varchar) -->
 <div class="form-group[#if ERR_IP#] has-error[#endif#]">
  <label for="ip" class="col-lg-3 control-label">
- IP:
+ IP адрес:
  </label>
- <div class="col-lg-9"><input id="ip" name="ip" value="[#IP#]" type="text" class="form-control"></div>
+ <div class="col-lg-9">
+	<input id="ip" name="ip" value="[#IP#]" type="hidden" class="form-control">
+	<input id="ip" name="ip" value="[#IP#]" type="text" class="form-control" disabled>
+ </div>
 </div>
 <!-- DEV_ID (varchar) -->
 <div class="form-group[#if ERR_DEV_ID#] has-error[#endif#]">
  <label for="dev_id" class="col-lg-3 control-label">
- DEV_ID:
+ ID устройства:
  </label>
- <div class="col-lg-9"><input id="dev_id" name="dev_id" value="[#DEV_ID#]" type="text" class="form-control"></div>
+ <div class="col-lg-9">
+	<input id="dev_id" name="dev_id" value="[#DEV_ID#]" type="hidden" class="form-control">
+	<input id="dev_id" name="dev_id" value="[#DEV_ID#]" type="text" class="form-control" disabled>
+ </div>
 </div>
 <!-- DESCRIPTION (varchar) -->
 <div class="form-group[#if ERR_DEV_TYPE#] has-error[#endif#]">
  <label for="dev_type" class="col-lg-3 control-label">
- DEV_TYPE:
+ Тип устройства:
  </label>
- <div class="col-lg-9"><input id="dev_type" name="dev_type" value="[#DEV_TYPE#]" type="text" class="form-control"></div>
+ <div class="col-lg-9">
+	<input id="dev_type" name="dev_type" value="[#DEV_TYPE#]" type="hidden" class="form-control">
+	<input id="dev_type" name="dev_type" value="[#DEV_TYPE#]" type="text" class="form-control" disabled>
+ </div>
 </div>
 <!-- INFO (varchar) -->
-<div class="form-group[#if ERR_INFO#] has-error[#endif#]">
+<!--div class="form-group[#if ERR_INFO#] has-error[#endif#]">
  <label for="info" class="col-lg-3 control-label">
- INFO:
+ Дополнительная информация:
  </label>
  <div class="col-lg-9"><input id="info" name="info" value="[#INFO#]" type="text" class="form-control"></div>
-</div>
+</div-->
 <div class="form-group">
         <div class="col-lg-offset-3 col-lg-4">
  [#if ID!=""#]
