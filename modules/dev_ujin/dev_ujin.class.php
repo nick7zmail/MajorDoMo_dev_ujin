@@ -120,26 +120,21 @@ function run() {
 * @access public
 */
 function admin(&$out) {
- $this->getConfig();
- $out['API_URL']=$this->config['API_URL'];
- if (!$out['API_URL']) {
-  $out['API_URL']='http://';
- }
- $out['API_KEY']=$this->config['API_KEY'];
- $out['API_USERNAME']=$this->config['API_USERNAME'];
- $out['API_PASSWORD']=$this->config['API_PASSWORD'];
- if ($this->view_mode=='update_settings') {
-   global $api_url;
-   $this->config['API_URL']=$api_url;
-   global $api_key;
-   $this->config['API_KEY']=$api_key;
-   global $api_username;
-   $this->config['API_USERNAME']=$api_username;
-   global $api_password;
-   $this->config['API_PASSWORD']=$api_password;
-   $this->saveConfig();
-   $this->redirect("?");
- }
+	$this->getConfig();
+	$out['DEBUG']=$this->config['DEBUG'];
+	if(!$this->config['BUFF']) $this->config['BUFF']=1024;
+	$out['BUFF']=$this->config['BUFF'];
+	if ((time() - (int)gg('cycle_dev_ujinRun')) < 15 ) {
+		$out['CYCLERUN'] = 1;
+	} else {
+		$out['CYCLERUN'] = 0;
+	}
+	if ($this->view_mode=='update_settings') {
+		$this->config['DEBUG']=gr('debug');
+		$this->config['BUFF']=gr('buff');
+		$this->saveConfig();
+		$this->redirect("?");
+	}
  if (isset($this->data_source) && !$_GET['data_source'] && !$_POST['data_source']) {
   $out['SET_DATASOURCE']=1;
  }
@@ -232,32 +227,36 @@ function usual(&$out) {
     	{
     		$errorcode = socket_last_error();
     		$errormsg = socket_strerror($errorcode);
-    		//die("Couldn't create socket: [$errorcode] $errormsg".PHP_EOL);
+			die(
+				if($this->config['DEBUG']) debmes('[socket] '."Couldn't create socket: [$errorcode] $errormsg", 'dev_ujin_debug');
+			);
     	}
-    	//echo "Socket created".PHP_EOL;
+		if($this->config['DEBUG']) debmes('[socket] '."Socket created", 'dev_ujin_debug');
     	$buf_array['command']='management';
     	$buf_array['id']=intval($device['DEV_ID']);
         $buf_array['uniq_id']=intval(time() % 100 * 1000);
-        //$buf_array['uniq_id']=68267;
         $token=SQLSelectOne("SELECT VALUE FROM $table WHERE DEVICE_ID='".DBSafe($device['ID'])."' AND TITLE='token'");
         $buf_array['token']=$token['VALUE'];
         $metric_name=$properties[$i]['TITLE'];
         $buf_array[$metric_name]=$value;
         $buf=json_encode($buf_array);
-        debmes($buf, 'ujin_debug');
+		if($this->config['DEBUG']) debmes('[udp:'.$device['IP'].'] --- '.$buf, 'dev_ujin_debug');
 		if( !socket_sendto($sock, $buf, strlen($buf) , 0 ,  $device['IP'], 30300))
 		{
 			$errorcode = socket_last_error();
 			$errormsg = socket_strerror($errorcode);
-			//die("Could not send data: [$errorcode] $errormsg \n");
-		} 	
-     //to-do
+			die(
+				if($this->config['DEBUG']) debmes('[socket] '."Could not send data: [$errorcode] $errormsg", 'dev_ujin_debug');
+			);
+		}
+		if($this->config['DEBUG']) debmes('[socket] '."Message sended", 'dev_ujin_debug');
     }
    }
  }
  function processCycle($msg, $ip) {
     $this->getConfig();
       //to-do
+	if($this->config['DEBUG']) debmes('[udp:'.$ip.'] +++ '.$msg, 'dev_ujin_debug');
     $msg_arr=json_decode($msg, TRUE);
     if(is_array($msg_arr['header'])) {
         $dev_id=$msg_arr['header']['id'];

@@ -1,12 +1,43 @@
 
 <!-- table zwave_devices search -->
-<div>
- [ <a href="#" onClick="$('#api_settings').toggle();return false;"><#LANG_SETUP#></a> ]
-</div>
-<div style="display:none" id='api_settings'>
+<div class="form-inline">
+   <img src="/img/modules/dev_ujin.png"  width="30" height="30" class="form-group">
+   <h2 class="form-group" style="margin: 0 0;">Ujin devices</h2>
+   [#if CYCLERUN!=1#]
+      <span class="form-group label label-danger" title="<#LANG_XIMI_APP_CYCLE_STATE#>">Цикл остановлен</span>
+   [#endif#]
+</div><br>
+
+<div class="collapse" id='api_settings'>
 &nbsp;
 <form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
 <fieldset>
+<div class="form-group">
+ <label class="control-label">
+ Режим отладки:
+ </label>
+	<div class="btn-group controls" style="margin-left:0px" data-toggle="buttons">
+		<label class="btn [#if DEBUG=="true"#]btn-primary[#else#]btn-default[#endif#]">
+			<input type="radio" name="debug" value="true" [#if DEBUG=="true"#] checked[#endif#]> <#LANG_ON#>
+		</label>
+		<label class="btn [#if DEBUG==""#]btn-primary[#else#]btn-default[#endif#]">
+			<input type="radio" name="debug" value="" [#if DEBUG==""#] checked[#endif#]> <#LANG_OFF#>
+		</label>
+	</div>
+</div>
+[#if DEBUG=="true"#]
+<blockquote class="blockquote">
+Служебная информация
+<div class="form-group">
+ <label class="control-label">
+ Длина буфера UDP:
+ </label>
+ <div class="controls"><input type="text" name="buff" value="[#BUFF#]" class="input"></div>
+</div>
+</blockquote>
+[#else#]
+<input type="text" name="buff" value="[#BUFF#]" class="input" hidden>
+[#endif DEBUG#]
 <div class="form-actions">
 <button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_UPDATE#></button>
 <input type="hidden" name="view_mode" value="update_settings">
