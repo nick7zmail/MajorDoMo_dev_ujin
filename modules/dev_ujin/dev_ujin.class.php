@@ -124,7 +124,7 @@ function admin(&$out) {
 	$out['DEBUG']=$this->config['DEBUG'];
 	if(!$this->config['BUFF']) $this->config['BUFF']=1024;
 	$out['BUFF']=$this->config['BUFF'];
-	if ((time() - (int)gg('cycle_dev_ujinRun')) < 15 ) {
+	if ((time() - (int)gg('cycle_dev_ujinRun')) < 60*2 ) {
 		$out['CYCLERUN'] = 1;
 	} else {
 		$out['CYCLERUN'] = 0;

@@ -7,7 +7,7 @@
 [#if ERR#]
 <div class="alert alert-danger"><#LANG_FILLOUT_REQURED#></div>
 [#endif ERR#]
-<fieldset>
+<fieldset class="col-lg-9 col-md-9 col-sm-6">
 [#if ID=""#]
 <legend><#LANG_NEW_RECORD#></legend>
 [#endif ID#]
@@ -17,14 +17,14 @@
  <#LANG_TITLE#>:
  (*)
  </label>
- <div class="col-lg-9"><input id="title" name="title" value="[#TITLE#]" type="text" class="form-control"></div>
+ <div  class="col-lg-6"><input id="title" name="title" value="[#TITLE#]" type="text" class="form-control"></div>
 </div>
 <!-- IP (varchar) -->
 <div class="form-group[#if ERR_IP#] has-error[#endif#]">
  <label for="ip" class="col-lg-3 control-label">
  IP адрес:
  </label>
- <div class="col-lg-9">
+ <div class="col-lg-6">
 	<input id="ip" name="ip" value="[#IP#]" type="hidden" class="form-control">
 	<input id="ip" name="ip" value="[#IP#]" type="text" class="form-control" disabled>
  </div>
@@ -34,7 +34,7 @@
  <label for="dev_id" class="col-lg-3 control-label">
  ID устройства:
  </label>
- <div class="col-lg-9">
+ <div class="col-lg-6">
 	<input id="dev_id" name="dev_id" value="[#DEV_ID#]" type="hidden" class="form-control">
 	<input id="dev_id" name="dev_id" value="[#DEV_ID#]" type="text" class="form-control" disabled>
  </div>
@@ -44,7 +44,7 @@
  <label for="dev_type" class="col-lg-3 control-label">
  Тип устройства:
  </label>
- <div class="col-lg-9">
+ <div class="col-lg-6">
 	<input id="dev_type" name="dev_type" value="[#DEV_TYPE#]" type="hidden" class="form-control">
 	<input id="dev_type" name="dev_type" value="[#DEV_TYPE#]" type="text" class="form-control" disabled>
  </div>
@@ -73,4 +73,7 @@
         </div>
 </div>
 </fieldset>
+<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+<img src="/img/dev_ujin/[#IMG#].png" alt="Device Logo">
+</div>
 </form>

@@ -24,10 +24,10 @@ $checkEvery=10;
 	{
 		$errorcode = socket_last_error();
 		$errormsg = socket_strerror($errorcode);
-		if($this->config['DEBUG']) debmes('[cycle socket] '."Couldn't create socket: [$errorcode] $errormsg", 'dev_ujin_debug');
+		if($dev_ujin_module->config['DEBUG']) debmes('[cycle socket] '."Couldn't create socket: [$errorcode] $errormsg", 'dev_ujin_debug');
 		die("Couldn't create socket: [$errorcode] $errormsg".PHP_EOL);
 	}
-	if($this->config['DEBUG']) debmes('[cycle socket] '."Socket created", 'dev_ujin_debug');  
+	if($dev_ujin_module->config['DEBUG']) debmes('[cycle socket] '."Socket created", 'dev_ujin_debug');  
 	echo "Socket created".PHP_EOL;
 	 
 	// привязка исходного адреса
@@ -35,11 +35,11 @@ $checkEvery=10;
 	{
 		$errorcode = socket_last_error();
 		$errormsg = socket_strerror($errorcode);
-		if($this->config['DEBUG']) debmes('[cycle socket] '."Could not send data: [$errorcode] $errormsg", 'dev_ujin_debug');
+		if($dev_ujin_module->config['DEBUG']) debmes('[cycle socket] '."Could not send data: [$errorcode] $errormsg", 'dev_ujin_debug');
 		die("Could not bind socket : [$errorcode] $errormsg".PHP_EOL);
 	}
 	
-	if($this->config['DEBUG']) debmes('[cycle socket] '."Socket bind OK", 'dev_ujin_debug'); 
+	if($dev_ujin_module->config['DEBUG']) debmes('[cycle socket] '."Socket bind OK", 'dev_ujin_debug'); 
 	echo "Socket bind OK".PHP_EOL;
 
 

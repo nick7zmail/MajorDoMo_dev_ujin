@@ -11,7 +11,7 @@
    $ok=1;
   // step: default
   if ($this->tab=='') {
-  //updating '<%LANG_TITLE%>' (varchar, required)
+
    $rec['TITLE']=gr('title');
    if ($rec['TITLE']=='') {
     $out['ERR_TITLE']=1;
@@ -42,7 +42,15 @@
     $out['ERR']=1;
    }
   }
-
+  if ($this->tab=='') {
+	   if(stripos($rec['DEV_TYPE'], 'msensor')!== false) $rec['IMG']='msensor';
+	   elseif(stripos($rec['DEV_TYPE'], 'dinRelay')!== false) $rec['IMG']='dinRelay';
+	   elseif(stripos($rec['DEV_TYPE'], 'sdimmer')!== false) $rec['IMG']='sdimmer';
+	   elseif(stripos($rec['DEV_TYPE'], 'termostat')!== false) $rec['IMG']='termostat';
+	   elseif(stripos($rec['DEV_TYPE'], 'sonoff_ext_socket')!== false) $rec['IMG']='sonoff_ext_socket';
+	   else $rec['IMG']='unknown';
+	// some action for every record if required
+  }
   if ($this->tab=='data') {
    //dataset2
    $new_id=0;
