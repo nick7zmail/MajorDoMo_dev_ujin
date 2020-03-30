@@ -232,13 +232,21 @@ function usual(&$out) {
     	}
 		if($this->config['DEBUG']) debmes('[socket] '."Socket created", 'dev_ujin_debug');
     	$buf_array['command']='management';
-    	$buf_array['id']=intval($device['DEV_ID']);
+//    	$buf_array['id']=intval($device['DEV_ID']);
+    	$buf_array['id']=$device['DEV_ID'];
         $buf_array['uniq_id']=intval(time() % 100 * 1000);
         $token=SQLSelectOne("SELECT VALUE FROM $table WHERE DEVICE_ID='".DBSafe($device['ID'])."' AND TITLE='token'");
         $buf_array['token']=$token['VALUE'];
         $metric_name=$properties[$i]['TITLE'];
         $buf_array[$metric_name]=$value;
         $buf=json_encode($buf_array);
+
+	$re = '/"id":"(\w+)"/';
+	$buf=preg_replace($re, '"id":$1', $buf);
+//	debmes($buf, 'ujin');
+
+
+
 		if($this->config['DEBUG']) debmes('[udp:'.$device['IP'].'] --- '.$buf, 'dev_ujin_debug');
 		if( !socket_sendto($sock, $buf, strlen($buf) , 0 ,  $device['IP'], 30300))
 		{
